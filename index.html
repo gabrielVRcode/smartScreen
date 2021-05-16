@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+        *{ cursor:none; }
+
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+
+    .center {
+        /* Full height */
+        height: 100%;
+        width: 100%;
+
+        /* Center and scale the image nicely */
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: black;
+    }
+    </style>
+</head>
+<body style="overflow: hidden">
+<div width="1024" class="center" backgroud-color="black" id="divblock"></div>
+<video width="1024" id="vid" class="center">
+  <source id="mp4" type="video/mp4">
+</video>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function detectFace(){
+        var inter = setInterval(function(){
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1:8080/getDetection"
+            }).done(function (data) {
+                var json = JSON.parse(data);
+                if(json.detection == "True"){
+                    $("#divblock").hide();
+                    video.load();
+                    video.play();
+                    clearInterval(inter);
+                }
+                if(json.reload == "True"){
+                    $.ajax({
+                        type: "POST",
+                        url: "http://127.0.0.1:8080/doneVideo"
+                    }).done(function (data) {
+                        mp4.src = ""
+                        mp4.src = "promo.mp4?t="+ new Date().getTime();
+                        video.load();
+                    });
+                }
+            });
+        }, 2000);
+    }
+    document.getElementById('vid').addEventListener('ended',myHandler,false);
+    function myHandler(e) {
+        console.log("ended video");
+        video.currentTime = 0
+        $("#divblock").show();
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1:8080/deactivate"
+        }).done(function (data) {
+            detectFace();
+        });
+    }
+    var video = document.getElementById('vid')
+    var mp4 = document.getElementById('mp4')
+    mp4.src = "promo.mp4?t="+ new Date().getTime();
+    detectFace();
+</script>
+
+</body>
+</html>

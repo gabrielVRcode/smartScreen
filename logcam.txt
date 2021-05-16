@@ -1,0 +1,91 @@
+
+Detected
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/urllib3/connection.py", line 171, in _new_conn
+    (self._dns_host, self.port), self.timeout, **extra_kw)
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/urllib3/util/connection.py", line 79, in create_connection
+    raise err
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/urllib3/util/connection.py", line 69, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/urllib3/connectionpool.py", line 600, in urlopen
+    chunked=chunked)
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/urllib3/connectionpool.py", line 354, in _make_request
+    conn.request(method, url, **httplib_request_kw)
+  File "/usr/lib/python3.5/http/client.py", line 1107, in request
+    self._send_request(method, url, body, headers)
+  File "/usr/lib/python3.5/http/client.py", line 1152, in _send_request
+    self.endheaders(body)
+  File "/usr/lib/python3.5/http/client.py", line 1103, in endheaders
+    self._send_output(message_body)
+  File "/usr/lib/python3.5/http/client.py", line 934, in _send_output
+    self.send(msg)
+  File "/usr/lib/python3.5/http/client.py", line 877, in send
+    self.connect()
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/urllib3/connection.py", line 196, in connect
+    conn = self._new_conn()
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/urllib3/connection.py", line 180, in _new_conn
+    self, "Failed to establish a new connection: %s" % e)
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x6d358ad0>: Failed to establish a new connection: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/requests/adapters.py", line 445, in send
+    timeout=timeout
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/urllib3/connectionpool.py", line 638, in urlopen
+    _stacktrace=sys.exc_info()[2])
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/urllib3/util/retry.py", line 398, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='127.0.0.1', port=8080): Max retries exceeded with url: /getDetection (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x6d358ad0>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.5/threading.py", line 914, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.5/threading.py", line 862, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/pi/Desktop/Spectre/SpectreRasp.py", line 43, in endedVideo
+    r = requests.get("http://127.0.0.1:8080/getDetection")
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/requests/api.py", line 72, in get
+    return request('get', url, params=params, **kwargs)
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/requests/api.py", line 58, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/requests/sessions.py", line 512, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/requests/sessions.py", line 622, in send
+    r = adapter.send(request, **kwargs)
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/requests/adapters.py", line 513, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPConnectionPool(host='127.0.0.1', port=8080): Max retries exceeded with url: /getDetection (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x6d358ad0>: Failed to establish a new connection: [Errno 111] Connection refused',))
+
+: cannot connect to X server 
+Detected
+: cannot connect to X server 
+mmal: mmal_vc_component_create: failed to create component 'vc.ril.camera' (1:ENOMEM)
+mmal: mmal_component_create_core: could not create component 'vc.ril.camera' (1)
+Traceback (most recent call last):
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/picamera/camera.py", line 522, in _init_camera
+    prefix="Failed to create camera component")
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/picamera/exc.py", line 191, in mmal_check
+    raise PiCameraMMALError(status, prefix)
+picamera.exc.PiCameraMMALError: Failed to create camera component: Out of memory
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/pi/Desktop/Spectre/SpectreRasp.py", line 92, in <module>
+    initCamera()
+  File "/home/pi/Desktop/Spectre/SpectreRasp.py", line 25, in initCamera
+    camera = PiCamera()
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/picamera/camera.py", line 488, in __init__
+    self.STEREO_MODES[stereo_mode], stereo_decimate)
+  File "/home/pi/Desktop/Spectre_env/lib/python3.5/site-packages/picamera/camera.py", line 526, in _init_camera
+    "Camera is not enabled. Try running 'sudo raspi-config' "
+picamera.exc.PiCameraError: Camera is not enabled. Try running 'sudo raspi-config' and ensure that the camera has been enabled.
